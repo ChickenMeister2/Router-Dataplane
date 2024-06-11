@@ -1,0 +1,42 @@
+Dima Cosmin-Alexandru 324CA
+
+ ______            _             ______      _              _                  
+ | ___ \          | |            |  _  \    | |            | |                 
+ | |_/ /___  _   _| |_ ___ _ __  | | | |__ _| |_ __ _ _ __ | | __ _ _ __   ___ 
+ |    // _ \| | | | __/ _ \ '__| | | | / _` | __/ _` | '_ \| |/ _` | '_ \ / _ \  
+ | |\ \ (_) | |_| | ||  __/ |    | |/ / (_| | || (_| | |_) | | (_| | | | |  __/
+ \_| \_\___/ \__,_|\__\___|_|    |___/ \__,_|\__\__,_| .__/|_|\__,_|_| |_|\___|
+                                                     | |                       
+                                                     |_|         
+                                                                                         
+I've implemented and used the following functions:
+
+• rtable-compare - comparison function for the qSort function
+
+• route_table_entry - the function uses a binary search to find the best route
+		      to send the packet. The table is already sorted in
+		      ascending order from the qSort function
+
+• arp_table_entry - the function finds the MAC address that corresponds to an 
+		    IP address
+
+• icmp - in this function, memory is allocated for a new ICMP packet that
+	 contains an Ethernet header, an IP one, and an ICMP one. We populate
+	 each header with the necessary information depending on the error
+	 message received. Finally, the generated packet is sent to the network
+	 interface that we specified
+
+• main - here is implemented the general logic of the program. First of all, it
+	 checks if the received packet is an IPv4 packet. If it is not, it 
+	 ignores it and moves on to the next packet. Then, it checks if the 
+	 packet is corrupt by calculating and verifying the checksum. If the 
+	 packet is corrupt, it ignores it and moves on to the next packet. After
+	  that, it searches for the best route for the destination IP address of
+	   the packet. If it does not find any route, it sends an ICMP message
+	   of type “DEST_UNREACHABLE”. It checks if the destination IP address
+	   of the packet is the IP address of the interface on which the packet
+	   was received. If it is, it sends an ICMP response of type 
+	   “ECHO_REPLY”. It checks if the TTL of the packet is less than or
+	   equal to 1. If it is, it sends an ICMP message of type “TTL_EXPIRED”.
+	   Finally, if the packet has passed all these checks, it decreases the
+	   TTL by 1 and sends the packet further.
